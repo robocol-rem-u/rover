@@ -5,6 +5,7 @@ find_package(catkin REQUIRED
   rospy 
   std_msgs 
   geometry_msgs
+  master_msgs
 #  message_generation
 )
 
@@ -34,6 +35,7 @@ catkin_package(
   rospy
   std_msgs
   geometry_msgs
+  master_msgs
 )
 
 
