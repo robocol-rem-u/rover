@@ -1,0 +1,11 @@
+<launch>
+
+  <node pkg="rover" type="node_IMU.py" name="node_IMU"/>
+  <node pkg="rover" type="node_Arm_Traction.py" name="node_Arm_Traction"/>
+  <node pkg="rover" type="node_Autonomous_Traction.py" name="node_Autonomous_Traction"/>
+  <node pkg="rover" type="node_FPGA.py" name="node_FPGA"/>
+
+  <node pkg="rover" type="node_Odometry.py" name="node_Odometry"/>
+
+
+</launch>
