@@ -3,19 +3,9 @@ import rospy
 from master_msgs.msg import traction_Orders, connection, arm_Orders, rpm, current,pots,sensibility
 
 
-def traction_Orders_Callback(param):
-    pass
-
-def connection_Callback(param):
-    pass
-def arm_Orders_Callback(param):
-    pass
-def sensibility_Callback(param):
-    pass
-
-def node_FPGA():
+def node_fpga():
     #creacion del nodo
-    rospy.init_node('node_FPGA',anonymous=True)
+    rospy.init_node('node_fpga',anonymous=True)
 
     #se subscribe al topico traction orders
     rospy.Subscriber ('topic_Traction_Orders', traction_Orders, traction_Orders_Callback)
@@ -33,14 +23,24 @@ def node_FPGA():
     while not rospy.is_shutdown ():
         rate.sleep ()
 
+def traction_Orders_Callback(param):
+    pass
 
+def connection_Callback(param):
+    pass
+
+def arm_Orders_Callback(param):
+    pass
+
+def sensibility_Callback(param):
+    pass
 
 
 
 if __name__ == '__main__':
     try:
 
-        node_FPGA()
+        node_fpga()
 
     except rospy.ROSInterruptException:
         pass

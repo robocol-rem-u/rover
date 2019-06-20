@@ -5,20 +5,9 @@ from master_msgs.msg import imu_Speed, imu_Magnetism, rpm, position
 
 
 
-def IMU_Speed_Callback(param):
-    pass
-
-def RPM_Callback(param):
-    pass
-
-
-def IMU_Magnetism_Callback(param):
-    pass
-
-
-def node_Odometry():
+def node_odometry():
     # Se inicia el nodo de odometria
-    rospy.init_node ('node_Odometry', anonymous=True)
+    rospy.init_node ('node_odometry', anonymous=True)
     # Se suscribe a al topico de la informacion de la velocidad segun IMU
     rospy.Subscriber ('topic_IMU_Speed', imu_Speed, IMU_Speed_Callback)
     # Se suscribe a al topico de la informacion de RPM
@@ -31,10 +20,23 @@ def node_Odometry():
     while not rospy.is_shutdown ():
         rate.sleep ()
 
+
+
+def IMU_Speed_Callback(param):
+    pass
+
+
+def RPM_Callback(param):
+    pass
+
+
+def IMU_Magnetism_Callback(param):
+    pass
+
 # Metodo principal, crea el nodo de ROS, se suscribe a topico de informacion obstaculos e imprime su informacion
 # mientras que el nodo se este ejecutando
 if __name__ == '__main__':
     try:
-    	node_Odometry()
+    	node_odometry()
     except rospy.ROSInterruptException:
         pass

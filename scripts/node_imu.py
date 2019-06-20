@@ -6,9 +6,9 @@ from master_msgs.msg import imu_Speed, imu_Magnetism
 
 
 
-def node_IMU():
+def node_imu():
 	# Se inicia el nodo de odometria
-    rospy.init_node ('node_IMU', anonymous=True)
+    rospy.init_node ('node_imu', anonymous=True)
     # Se publica al topico sobre la velocidad segun IMU
     pub_IMU_Speed = rospy.Publisher ('topic_IMU_Speed', imu_Speed, queue_size=10)
     # Se publica al topico sobre la velocidad segun IMU
@@ -21,6 +21,6 @@ def node_IMU():
 # mientras que el nodo se este ejecutando
 if __name__ == '__main__':
     try:
-    	node_IMU()
+    	node_imu()
     except rospy.ROSInterruptException:
         pass
