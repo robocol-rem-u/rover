@@ -26,7 +26,7 @@ def node_FPGA():
     #se subscribe a sensibility
     rospy.Subscriber ('topic_Sensibility', sensibility, sensibility_Callback)   
     # publica en RPM, Current y POTS
-    pub_RPM = rospy.Publisher('topic_RPM', RPM, queue_size=10)
+    pub_RPM = rospy.Publisher('topic_RPM', rpm, queue_size=10)
     pub_Current = rospy.Publisher('topic_Current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_Pots',pots,queue_size=10)
     rate = rospy.Rate (10)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #Se importan las librerias necesarias junto con los mensajes a utilizar
 import rospy
-from master_msgs.msg import IMU_Speed, imu_Magnetism, rpm, position
+from master_msgs.msg import imu_Speed, imu_Magnetism, rpm, position
 
 
 
@@ -20,11 +20,11 @@ def node_Odometry():
     # Se inicia el nodo de odometria
     rospy.init_node ('node_Odometry', anonymous=True)
     # Se suscribe a al topico de la informacion de la velocidad segun IMU
-    rospy.Subscriber ('topic_IMU_Speed', IMU_Speed, IMU_Speed_Callback)
+    rospy.Subscriber ('topic_IMU_Speed', imu_Speed, IMU_Speed_Callback)
     # Se suscribe a al topico de la informacion de RPM
-    rospy.Subscriber ('topic_RPM', RPM, RPM_Callback)
+    rospy.Subscriber ('topic_RPM', rpm, RPM_Callback)
     # Se suscribe a al topico de la informacion de 
-    rospy.Subscriber ('topic_IMU_Magnetism', IMU_Magnetism, IMU_Magnetism_Callback)
+    rospy.Subscriber ('topic_IMU_Magnetism', imu_Magnetism, IMU_Magnetism_Callback)
     # Se crea referencia a topico para publicar posiciones
     pub_Position = rospy.Publisher ('topic_Position', position, queue_size=10)
     rate = rospy.Rate (10)
