@@ -9,13 +9,13 @@ def node_odometry():
     # Se inicia el nodo de odometria
     rospy.init_node ('node_odometry', anonymous=True)
     # Se suscribe a al topico de la informacion de la velocidad segun IMU
-    rospy.Subscriber ('topic_IMU_Speed', imu_Speed, IMU_Speed_Callback)
+    rospy.Subscriber ('topic_imu_speed', imu_Speed, IMU_Speed_Callback)
     # Se suscribe a al topico de la informacion de RPM
-    rospy.Subscriber ('topic_RPM', rpm, RPM_Callback)
+    rospy.Subscriber ('topic_rpm', rpm, RPM_Callback)
     # Se suscribe a al topico de la informacion de 
-    rospy.Subscriber ('topic_IMU_Magnetism', imu_Magnetism, IMU_Magnetism_Callback)
+    rospy.Subscriber ('topic_imu_magnetism', imu_Magnetism, IMU_Magnetism_Callback)
     # Se crea referencia a topico para publicar posiciones
-    pub_Position = rospy.Publisher ('topic_Position', position, queue_size=10)
+    pub_Position = rospy.Publisher ('topic_position', position, queue_size=10)
     rate = rospy.Rate (10)
     while not rospy.is_shutdown ():
         rate.sleep ()

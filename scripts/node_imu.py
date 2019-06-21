@@ -10,9 +10,9 @@ def node_imu():
 	# Se inicia el nodo de odometria
     rospy.init_node ('node_imu', anonymous=True)
     # Se publica al topico sobre la velocidad segun IMU
-    pub_IMU_Speed = rospy.Publisher ('topic_IMU_Speed', imu_Speed, queue_size=10)
+    pub_IMU_Speed = rospy.Publisher ('topic_imu_speed', imu_Speed, queue_size=10)
     # Se publica al topico sobre la velocidad segun IMU
-    pub_IMU_Magnetism = rospy.Publisher ('topic_IMU_Magnetism', imu_Magnetism, queue_size=10)
+    pub_IMU_Magnetism = rospy.Publisher ('topic_imu_magnetism', imu_Magnetism, queue_size=10)
     rate = rospy.Rate (10)
     while not rospy.is_shutdown ():
         rate.sleep ()
