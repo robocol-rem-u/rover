@@ -5,6 +5,6 @@
   <node pkg="rover" type="node_autonomous_traction.py" name="node_autonomous_traction"/>
   <node pkg="rover" type="node_fpga.py" name="node_fpga"/>
   <node pkg="rover" type="node_odometry.py" name="node_odometry"/>
-
+  <node pkg="rover" type="node_interface.py" name="node_interface"/>
 
 </launch>
