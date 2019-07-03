@@ -59,7 +59,7 @@ def enviarMensajeInicializacion():
     global EnviarMensaje
     while EnviarMensaje:
         nMsg = 1  # 3
-        print("Enviando Inicialización")
+        print("Enviando Inicializacion")
         WriteFPGA("A" + str(nMsg) + "#I0#I1#I2#I3#I4#I5#")
         time.sleep(1)
 
