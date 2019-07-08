@@ -13,6 +13,8 @@ global L0_speed, L1_speed, L2_speed, R0_speed, R1_speed, R2_speed
 global L0_current, L1_current, L2_current, R0_current, R1_current, R2_current
 global rover_temp, bat0, bat1, bat2, bat3
 global joint0, joint1, joint2, joint3, joint4, joint5, joint6
+ultimo_izquierdo=999
+ultimo_derecho=999
 EnviarMensaje=True #varibale de incilizacion
 
 SEPARADOR_POSITIVO = "#"
@@ -26,7 +28,7 @@ traction_present=traction_Orders()
 arm_present=arm_Orders()
 
 # Conexion serial a la FPGA
-ser = serial.Serial(port='/dev/serial0', baudrate = 115200)
+ser = serial.Serial(port='/dev/ttyTHS2', baudrate = 115200)
 # Pin de MUX en la FPGA
 
 
@@ -105,7 +107,7 @@ def procesarJoystick(RPM_I, RPM_D):
     if np.sign(ultimo_derecho) != np.sign(calc_RPM_der) and calc_RPM_der != 0 and np.sign(ultimo_derecho) != 0:
         MensajeSeguridadMotores += "R0#"
 
-    if np.abs(ultimo_izquierdo - calc_RPM_izq) > 3 or np.abs(ultimo_derecho - calc_RPM_der) > 3 or (
+    if np.abs(ultimo_izquierdo - calc_RPM_izq) > 0.1 or np.abs(ultimo_derecho - calc_RPM_der) > 0.1 or (
             calc_RPM_der == 0 and ultimo_derecho != 0) or (calc_RPM_izq == 0 and ultimo_izquierdo != 0):
         EnviarMensaje=not WriteFPGA(MensajeSeguridadMotores + StringIzquierda + StringDerecha)
 
@@ -137,7 +139,6 @@ def StartServerFPGA():
             line += received
 
             if received == "!" or received == "#":
-
 
                 signo = 1 if received=="!" else -1
                 numero = signo * int(line[1:5])
@@ -215,8 +216,6 @@ def StartServerFPGA():
 
 if __name__ == '__main__':
     try:
-
         node_fpga()
-
     except rospy.ROSInterruptException:
         pass
