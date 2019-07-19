@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from master_msgs.msg import traction_Orders, connection, arm_Orders, rpm, current,pots,sensibility
+from master_msgs.srv import service_enable
 import serial
 import threading
 import time
@@ -16,6 +17,7 @@ global joint0, joint1, joint2, joint3, joint4, joint5, joint6
 ultimo_izquierdo=999
 ultimo_derecho=999
 EnviarMensaje=True #varibale de incilizacion
+start_motor=0
 
 SEPARADOR_POSITIVO = "#"
 SEPARADOR_NEGATIVO = "!"
@@ -35,7 +37,7 @@ ser = serial.Serial(port='/dev/ttyTHS2', baudrate = 115200)
 
 ### NODO PRINCIPAL ###
 def node_fpga():
-    global pub_RPM,pub_Current,pub_Pots, inicio_rec
+    global pub_RPM,pub_Current,pub_Pots, inicio_rec,start_motor
 
 
     #creacion del nodo
@@ -50,6 +52,9 @@ def node_fpga():
     pub_RPM = rospy.Publisher('topic_rpm', rpm, queue_size=10)
     pub_Current = rospy.Publisher('topic_current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_pots',pots,queue_size=10)
+    rospy.wait_for_service('service_enable')  # Espera a que se cree el servicio
+    enable = rospy.ServiceProxy('service_enable', service_enable)
+    start_motor=enable(None)
     threading.Thread(target=enviarMensajeInicializacion).start()
     threading.Thread(target=StartServerFPGA).start()
 
