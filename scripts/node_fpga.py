@@ -62,13 +62,14 @@ def node_fpga():
 
 def enviarMensajeInicializacion():
     global EnviarMensaje
+    contador=0
     while EnviarMensaje:
         nMsg = 1  # 3
-        print("Enviando Inicializacion")
         WriteFPGA("A" + str(nMsg) + "#I0#I1#I2#I3#I4#I5#")
         time.sleep(1)
-
-
+        contador=contador+1
+        if contador>4:
+            EnviarMensaje=False
 
 
 ###NODOS PARA TOPICOS ###
