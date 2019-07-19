@@ -40,8 +40,6 @@ ser = serial.Serial(port='/dev/ttyTHS2', baudrate = 115200)
 ### NODO PRINCIPAL ###
 def node_fpga():
     global pub_RPM,pub_Current,pub_Pots, inicio_rec,start_motor
-
-
     #creacion del nodo
     rospy.init_node('node_fpga',anonymous=True)
     #se subscribe al topico traction orders
