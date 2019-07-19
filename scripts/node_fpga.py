@@ -17,6 +17,8 @@ global joint0, joint1, joint2, joint3, joint4, joint5, joint6
 ultimo_izquierdo=999
 ultimo_derecho=999
 EnviarMensaje=True #varibale de incilizacion
+almacenar=True
+almacenar2=True
 start_motor=0
 
 SEPARADOR_POSITIVO = "#"
@@ -52,9 +54,7 @@ def node_fpga():
     pub_RPM = rospy.Publisher('topic_rpm', rpm, queue_size=10)
     pub_Current = rospy.Publisher('topic_current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_pots',pots,queue_size=10)
-    rospy.wait_for_service('service_enable')  # Espera a que se cree el servicio
-    enable = rospy.ServiceProxy('service_enable', service_enable)
-    start_motor=enable(None)
+    enable = rospy.Service('service_enable', service_enable, handle_enable)
     threading.Thread(target=enviarMensajeInicializacion).start()
     threading.Thread(target=StartServerFPGA).start()
 
@@ -85,13 +85,19 @@ def traction_Orders_Callback(param):
 
 def arm_Orders_Callback(param):
     global arm_present
-    arm_present=param
+    arm_present=param.message
+    almacenar=WriteFPGA(arm_present)
     pass
 
 
-
+def handle_enable(param):
+    mensage=param.message
+    almacenar2=WriteFPGA(mensage)
+    return []
 
 ###METODOS EXTERNOS A ROS####
+
+
 
 def procesarJoystick(RPM_I, RPM_D):
     global EnviarMensaje, ultimo_izquierdo, ultimo_derecho
