@@ -52,8 +52,8 @@ def node_fpga():
     pub_RPM = rospy.Publisher('topic_rpm', rpm, queue_size=10)
     pub_Current = rospy.Publisher('topic_current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_pots',pots,queue_size=10)
-    enable = rospy.Service('service_enable', service_enable, handle_enable)
     threading.Thread(target=enviarMensajeInicializacion).start()
+    enable = rospy.Service('service_enable', service_enable, handle_enable)
     threading.Thread(target=StartServerFPGA).start()
 
     rate = rospy.Rate (10)
