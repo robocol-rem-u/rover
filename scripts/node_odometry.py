@@ -64,9 +64,9 @@ def node_odometry():
     pub_Position = rospy.Publisher ('odom', Odometry, queue_size=10)
     rate = rospy.Rate (10)
     t = [time.time(), time.time()]
-    odom.pose.orientation.w=0
-    odom.pose.position.x=0
-    odom.pose.position.y=0
+    odom.pose.pose.orientation.w=0
+    odom.pose.pose.position.x=0
+    odom.pose.pose.position.y=0
 
     while not rospy.is_shutdown ():
         rate.sleep ()
@@ -80,18 +80,18 @@ def RPM_Callback(msg):
     dSr = (vel[3]+vel[4]+vel[5])*dt
     dS = (dSl+dSr)/6
     dO = (dSr-dSl)/b
-    O = odom.pose.orientation.w
+    O = odom.pose.pose.orientation.w
     cose = math.cos(O+dO/2.0)
     seno = math.sin(O+dO/2.0)
     dScos = dS*cose
     dSsin = dS*seno
-    odom.pose.position.x = odom.pose.position.x + dScos
-    odom.pose.position.y = odom.pose.position.y + dSsin
-    odom.pose.orientation.w = O + dO
-    while odom.pose.orientation.w < -math.pi:
-        odom.pose.orientation.w = odom.pose.orientation.w + 2*math.pi
-    while odom.pose.orientation.w > math.pi:
-        odom.pose.orientation.w = odom.pose.orientation.w - 2*math.pi
+    odom.pose.pose.position.x = odom.pose.position.x + dScos
+    odom.pose.pose.position.y = odom.pose.position.y + dSsin
+    odom.pose.pose.orientation.w = O + dO
+    while odom.pose.pose.orientation.w < -math.pi:
+        odom.pose.pose.orientation.w = odom.pose.pose.orientation.w + 2*math.pi
+    while odom.pose.pose.orientation.w > math.pi:
+        odom.pose.pose.orientation.w = odom.pose.pose.orientation.w - 2*math.pi
     CovarSrSl = np.array([[kr*np.absolute(dSr), 0], [0, kl*np.absolute(dSl)]])
     Fpt1 = np.array([[1.0, 0, -dSsin], [1.0, 0, dScos], [0, 0, 1.0]])
     Fpt1trans = Fpt1.transpose()
