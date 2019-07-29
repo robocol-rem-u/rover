@@ -142,7 +142,7 @@ def StartServerFPGA():
 
     line = ""
 
-    while(True):
+    while(not rospy.is_shutdown()):
         try:
             received = ser.read().decode()
             line += received
@@ -151,6 +151,7 @@ def StartServerFPGA():
                 signo = 1 if received=="!" else -1
                 numero = np.float32(signo * int(line[1:5]))
                 codigo = line[0]
+                rospy.loginfo(line)
                 ## Se define que tipo de mensaje esta llegando y a lo que corresponde
                 if codigo == 'A':
                     #L0_current = numero
