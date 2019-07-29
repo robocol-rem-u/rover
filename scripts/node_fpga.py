@@ -151,26 +151,25 @@ def StartServerFPGA():
                 signo = 1 if received=="!" else -1
                 numero = np.float32(signo * int(line[1:5]))
                 codigo = line[0]
-                rospy.loginfo(line)
                 ## Se define que tipo de mensaje esta llegando y a lo que corresponde
                 if codigo == 'A':
                     #L0_current = numero
-                    current_present.L0_C=numero
+                    current_present.L0_C=numero/140
                 elif codigo == 'B':
                     #L1_current = numero
-                    current_present.L1_C = numero
+                    current_present.L1_C = numero/140
                 elif codigo == 'C':
                     #L2_current = numero
-                    current_present.L2_C = numero
+                    current_present.L2_C = numero/140
                 elif codigo == 'D':
                     #R0_current = numero
-                    current_present.R0_C = numero
+                    current_present.R0_C = numero/140
                 elif codigo == 'E':
                     #R1_current = numero
-                    current_present.R1_C = numero
+                    current_present.R1_C = numero/140
                 elif codigo == 'F':
                     #R2_current = numero
-                    current_present.R2_C = numero
+                    current_present.R2_C = numero/140
                 elif codigo == 'G':
                     #joint0 = numero
                     pots_present.J0 = numero
