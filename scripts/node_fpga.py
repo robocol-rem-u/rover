@@ -148,7 +148,6 @@ def StartServerFPGA():
             line += received
 
             if received == "!" or received == "#":
-                print("kbo gonolea")
                 signo = 1 if received=="!" else -1
                 numero = np.float32(signo * int(line[1:5]))
                 codigo = line[0]

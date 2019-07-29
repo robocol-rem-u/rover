@@ -51,7 +51,7 @@ t = [0, 0]
 empezar = False
 
 def node_odometry():
-    global pos
+    global pos,pub_Position
     # Se inicia el nodo de odometria
     rospy.init_node ('node_odometry', anonymous=True)
     # Se suscribe a al topico de la informacion de la velocidad segun IMU
@@ -85,8 +85,8 @@ def RPM_Callback(msg):
     seno = math.sin(O+dO/2.0)
     dScos = dS*cose
     dSsin = dS*seno
-    odom.pose.pose.position.x = odom.pose.position.x + dScos
-    odom.pose.pose.position.y = odom.pose.position.y + dSsin
+    odom.pose.pose.position.x = odom.pose.pose.position.x + dScos
+    odom.pose.pose.position.y = odom.pose.pose.position.y + dSsin
     odom.pose.pose.orientation.w = O + dO
     while odom.pose.pose.orientation.w < -math.pi:
         odom.pose.pose.orientation.w = odom.pose.pose.orientation.w + 2*math.pi
