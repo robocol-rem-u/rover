@@ -53,9 +53,8 @@ def node_fpga():
     pub_Current = rospy.Publisher('topic_current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_pots',pots,queue_size=10)
     threading.Thread(target=enviarMensajeInicializacion).start()
-    enable = rospy.Service('service_enable', service_enable, handle_enable)
     threading.Thread(target=StartServerFPGA).start()
-
+    enable = rospy.Service('service_enable', service_enable, handle_enable)
     rate = rospy.Rate (10)
     while not rospy.is_shutdown ():
         rate.sleep ()
@@ -149,7 +148,7 @@ def StartServerFPGA():
             line += received
 
             if received == "!" or received == "#":
-
+                print("kbo gonolea")
                 signo = 1 if received=="!" else -1
                 numero = signo * int(line[1:5])
                 codigo = line[0]
