@@ -211,11 +211,10 @@ def StartServerFPGA():
                 elif codigo == 'S':
                     #R2_speed = numero
                     rpm_present.R2_V = numero
-                line = ""
                 pub_Current.publish(current_present)
                 pub_Pots.publish(pots_present)
                 pub_RPM.publish(rpm_present)
-
+                line = ""
         except:
             line=""
 
