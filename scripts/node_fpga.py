@@ -144,20 +144,28 @@ def StartServerFPGA():
 
     while(not rospy.is_shutdown()):
         try:
-            received = ser.read().decode()
-            line += received
+            received = ser.read()
 
-            if received == "!" or received == "#":
-                signo = 1 if received=="!" else -1
+            line += received.decode()
+
+            if received=='\x00'.encode():
+                line = line[:-1]
+                line = line.strip(''.encode())
+    
+
+            if received.decode() == "!" or received.decode() == "#":
+
+                signo = 1 if received.decode()=="!" else -1
                 numero = np.float32(signo * int(line[1:5]))
                 codigo = line[0]
+                #print(line)
                 ## Se define que tipo de mensaje esta llegando y a lo que corresponde
                 if codigo == 'A':
                     #L0_current = numero
-                    current_present.L0_C=numero/140
+                    current_present.L1_C=numero/140
                 elif codigo == 'B':
                     #L1_current = numero
-                    current_present.L1_C = numero/140
+                    current_present.L0_C = numero/140
                 elif codigo == 'C':
                     #L2_current = numero
                     current_present.L2_C = numero/140
@@ -193,25 +201,25 @@ def StartServerFPGA():
                     pots_present.J6 = numero
                 elif codigo == 'N':
                     #L0_speed = numero
-                    rpm_present.L0_V = numero
+                    rpm_present.L1_V = -numero
                 elif codigo == 'O':
                     #L1_speed = numero
-                    rpm_present.L1_V = numero
+                    rpm_present.L2_V = -numero
                 elif codigo == 'P':
                     #L2_speed = numero
-                    rpm_present.L2_V = numero
+                    rpm_present.L0_V = -numero
                 elif codigo == 'Q':
                     #R0_speed = numero
-                    rpm_present.R0_V = numero
+                    rpm_present.R2_V = numero
                 elif codigo == 'R':
                     #R1_speed = numero
                     rpm_present.R1_V = numero
                 elif codigo == 'S':
                     #R2_speed = numero
-                    rpm_present.R2_V = numero
-                pub_Current.publish(current_present)
-                pub_Pots.publish(pots_present)
-                pub_RPM.publish(rpm_present)
+                    rpm_present.R0_V = numero
+                    pub_Current.publish(current_present)
+                    pub_Pots.publish(pots_present)
+                    pub_RPM.publish(rpm_present)
                 line = ""
         except:
             line=""

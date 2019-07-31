@@ -10,7 +10,8 @@ odom = Odometry()
 
 #El primero es la velocidad de la rueda izquierda y el segundo es la velocidad de la derecha.
 vel = [0, 0, 0, 0, 0, 0]
-
+R=0.12 #radio de la llanta en metros
+L=0.40 # distancia a centro geometrico
 #Son las constantes utilizadas para calcular la posicion y orientacion estimada del robot en cada momento.
 dt = 0
 dSl = 0
@@ -21,8 +22,8 @@ dSsin=0
 cose=0
 seno=0
 
-#Averiguar que es b. Por ahora en 1.
-b = float(2*50)
+#Averiguar que es b. es l por 2.
+b = float(2*L)
 
 #Constantes de la matriz de covarianza. Por ahora en 1.
 kr = 0.1
@@ -76,8 +77,8 @@ def RPM_Callback(msg):
     t.append(time.time())
     t = t[-2:]
     dt = (t[1]-t[0])
-    dSl = (vel[0]+vel[1]+vel[2])*dt
-    dSr = (vel[3]+vel[4]+vel[5])*dt
+    dSl = (vel[0]+vel[1]+vel[2])*(2*np.pi/60)*R*dt
+    dSr = (vel[3]+vel[4]+vel[5])*(2*np.pi/60)*R*dt
     dS = (dSl+dSr)/6
     dO = (dSr-dSl)/b
     O = odom.pose.pose.orientation.w
