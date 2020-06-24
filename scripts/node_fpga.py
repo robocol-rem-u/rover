@@ -32,14 +32,12 @@ traction_present=traction_Orders()
 arm_present=arm_Orders()
 
 # Conexion serial a la FPGA
-ser = serial.Serial(port='/dev/ttyTHS2', baudrate = 115200)
+#ser = serial.Serial(port='/dev/ttyTHS2', baudrate = 115200)
 # Pin de MUX en la FPGA
-
-
 
 ### NODO PRINCIPAL ###
 def node_fpga():
-    global pub_RPM,pub_Current,pub_Pots, inicio_rec,start_motor
+    global pub_RPM,pub_Current,pub_Pots,inicio_rec,start_motor
     #creacion del nodo
     rospy.init_node('node_fpga',anonymous=True)
     #se subscribe al topico traction orders
@@ -52,8 +50,8 @@ def node_fpga():
     pub_RPM = rospy.Publisher('topic_rpm', rpm, queue_size=10)
     pub_Current = rospy.Publisher('topic_current', current, queue_size=10)
     pub_Pots= rospy.Publisher('topic_pots',pots,queue_size=10)
-    threading.Thread(target=enviarMensajeInicializacion).start()
-    threading.Thread(target=StartServerFPGA).start()
+    #threading.Thread(target=enviarMensajeInicializacion).start()
+    #threading.Thread(target=StartServerFPGA).start()
     enable = rospy.Service('service_enable', service_enable, handle_enable)
     rate = rospy.Rate (10)
     while not rospy.is_shutdown ():
@@ -94,9 +92,6 @@ def handle_enable(param):
     return []
 
 ###METODOS EXTERNOS A ROS####
-
-
-
 def procesarJoystick(RPM_I, RPM_D):
     global EnviarMensaje, ultimo_izquierdo, ultimo_derecho
 
@@ -124,10 +119,9 @@ def procesarJoystick(RPM_I, RPM_D):
         ultimo_derecho = calc_RPM_der
 
 
-
 # Recepcion de datos de la base a la Rpi y reenvio a la FPGA, manejo del MUX
 def WriteFPGA(rcv):
-    ser.write(rcv.encode())
+    #ser.write(rcv.encode())
     return True
 
 
