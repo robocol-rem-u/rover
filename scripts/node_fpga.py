@@ -52,7 +52,7 @@ finally:
 
 ### NODO PRINCIPAL ###
 def node_fpga():
-    global pub_RPM,pub_Current,pub_Pots, inicio_rec,start_motor
+    global pub_RPM,pub_Current,pub_Pots,inicio_rec,start_motor
     #creacion del nodo
     rospy.init_node('node_fpga',anonymous=True)
     #se subscribe al topico traction orders
@@ -115,9 +115,6 @@ def handle_enable(param):
     return []
 
 ###METODOS EXTERNOS A ROS####
-
-
-
 def procesarJoystick(RPM_I, RPM_D):
     global EnviarMensaje, ultimo_izquierdo, ultimo_derecho
     print('Procesar Joystick')
@@ -144,7 +141,6 @@ def procesarJoystick(RPM_I, RPM_D):
 
         ultimo_izquierdo = calc_RPM_izq
         ultimo_derecho = calc_RPM_der
-
 
 
 # Recepcion de datos de la base a la Rpi y reenvio a la FPGA, manejo del MUX
